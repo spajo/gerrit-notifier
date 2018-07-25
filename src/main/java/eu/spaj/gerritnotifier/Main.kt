@@ -16,10 +16,6 @@ class Main : App(MainView::class) {
     override fun start(stage: Stage) {
         super.start(stage)
 
-        val byteArray = ByteArray(80000)
-        resources.stream("/icon.png").read(byteArray)
-        println(String(byteArray))
-
         trayicon(resources.stream("/icon.png")) {
             toolTip = "Gerrit Notifier"
 
