@@ -1,5 +1,6 @@
 package eu.spaj.gerritnotifier
 
+import eu.spaj.gerritnotifier.gerrit.GerritEvent
 import tornadofx.View
 import tornadofx.action
 import tornadofx.button
@@ -13,7 +14,7 @@ class MainView : View("Gerrit Notifier") {
     override val root = vbox {
         button("Press me!") {
             action {
-                fire(GerritEvent("Message"))
+                fire(GerritEvent("Title", "message"))
             }
         }
     }

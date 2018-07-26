@@ -1,11 +1,9 @@
 package eu.spaj.gerritnotifier
 
+import eu.spaj.gerritnotifier.gerrit.GerritEvent
 import javafx.application.Platform
 import javafx.stage.Stage
-import tornadofx.App
-import tornadofx.EventContext
-import tornadofx.FX
-import tornadofx.FXEventRegistration
+import tornadofx.*
 import java.awt.TrayIcon
 
 /**
@@ -16,7 +14,6 @@ import java.awt.TrayIcon
 
 class Main : App(MainView::class) {
 
-    private lateinit var trayIcon: TrayIcon
 
     override fun start(stage: Stage) {
         super.start(stage)
@@ -43,18 +40,9 @@ class Main : App(MainView::class) {
                     }
                 }
             }
-
-            trayIcon = this
+            find(MainController::class).trayIcon = this
         }
 
-        FX.eventbus.subscribe(event = GerritEvent::class, scope = scope,
-                registration = FXEventRegistration(eventType = GerritEvent::class, owner = null, maxCount = null,
-                        action = { trayIcon.displayMessage("test", "test", TrayIcon.MessageType.INFO) }))
-
-    }
-
-    fun test(event: EventContext): Unit {
-        trayIcon.displayMessage("Test", "Test", TrayIcon.MessageType.INFO)
     }
 
     private fun showToFront() {

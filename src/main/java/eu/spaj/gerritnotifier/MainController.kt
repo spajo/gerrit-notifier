@@ -1,6 +1,8 @@
 package eu.spaj.gerritnotifier
 
+import eu.spaj.gerritnotifier.gerrit.GerritEvent
 import tornadofx.Controller
+import java.awt.TrayIcon
 
 /**
  * @author erafaja
@@ -10,9 +12,11 @@ import tornadofx.Controller
 
 class MainController : Controller() {
 
+    lateinit var trayIcon: TrayIcon
+
     init {
         subscribe<GerritEvent> {
-
+            trayIcon.displayMessage(it.caption,it.message, TrayIcon.MessageType.INFO)
         }
     }
 
