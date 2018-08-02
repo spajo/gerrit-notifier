@@ -1,7 +1,6 @@
 package eu.spaj.gerritnotifier.gerrit.data.nested
 
 import com.squareup.moshi.JsonClass
-import java.net.URL
 
 /**
  * @author erafaja
@@ -12,5 +11,5 @@ data class Change(
         val project: String,
         val branch: String,
         val number: Long,
-        val url: URL
+        val url: String
 )

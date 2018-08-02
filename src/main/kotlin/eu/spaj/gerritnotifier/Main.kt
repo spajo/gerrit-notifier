@@ -1,10 +1,15 @@
 package eu.spaj.gerritnotifier
 
-import eu.spaj.gerritnotifier.gerrit.GerritEvent
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import javafx.application.Platform
 import javafx.stage.Stage
-import tornadofx.*
+import tornadofx.App
+import tornadofx.FX
+import tornadofx.find
 import java.awt.TrayIcon
+import java.nio.file.Files
+import java.nio.file.Paths
 
 /**
  * @author erafaja
@@ -12,11 +17,14 @@ import java.awt.TrayIcon
  */
 
 
-class Main : App(MainView::class) {
+class Main : App(ConfigView::class) {
 
+    private val mainController = find(ConfigController::class)
 
     override fun start(stage: Stage) {
         super.start(stage)
+
+        loadGerritConfig()
 
         trayicon(resources.stream("/icon.png"), "Gerrit Notifier", autoSize = true) {
             setOnMouseClicked(fxThread = true) {
@@ -40,9 +48,28 @@ class Main : App(MainView::class) {
                     }
                 }
             }
-            find(MainController::class).trayIcon = this
+            mainController.trayIcon = this
         }
+    }
 
+    override fun stop() {
+        super.stop()
+        mainController.stop()
+    }
+
+    private fun loadGerritConfig() {
+        val configPath = Paths.get("config.json")
+
+        if (Files.exists(configPath)) {
+            val configString = Files.readAllLines(configPath).joinToString("").trimIndent()
+            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+            val adapter = moshi.adapter<ConfigDTO>(ConfigDTO::class.java)
+            val configDTO = adapter.lenient().fromJson(configString)
+
+            Config.usernameProperty.set(configDTO?.username)
+            Config.urlProperty.set(configDTO?.url)
+            Config.portProperty.set(configDTO?.port ?: Config.GERRIT_DEFAULT_PORT)
+        }
     }
 
     private fun showToFront() {

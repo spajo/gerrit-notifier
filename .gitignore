@@ -101,3 +101,5 @@ gerrit-notifier.iml
 .idea/misc.xml
 .idea/modules.xml
 .idea/sonarlint/
+config.json
+detekt

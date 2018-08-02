@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
  * Created on 2018-07-26.
  */
 @JsonClass(generateAdapter = true)
-data class  Approval(
+data class Approval(
         val type: String,
         val value: String
 )

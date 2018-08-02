@@ -9,10 +9,10 @@ import eu.spaj.gerritnotifier.gerrit.data.nested.Change
  * Created on 2018-07-26.
  */
 @JsonClass(generateAdapter = true)
-data class Merge(
-        val submitter: Author,
+data class Patchset(
+        val uploader: Author?,
         val change: Change
 ) {
-    val caption = "${submitter.username} merged ${change.number}"
+    val caption = "${uploader?.username} added patchset on ${change.number}"
     val message = "${change.project} on branch ${change.branch}"
 }
