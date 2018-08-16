@@ -1,4 +1,4 @@
-# Project Title
+# gerrit-notifier
 
 App that shows notifications from Gerrit in SystemTray.
 
@@ -25,13 +25,12 @@ There are no tests here unfortunately.
 * [detekt-maven-plugin](https://github.com/Ozsie/detekt-maven-plugin) - maven plugin for detekt
 * [dokka](https://github.com/Kotlin/dokka) - docs - I'll upload them later
 * [Maven](https://maven.apache.org/) - Dependency Management
+* [README-Templae](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - readme template, thanks
 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Rafal Janicki** - *this project* - [spajo](https://github.com/spajo)
 
 ## License
 
