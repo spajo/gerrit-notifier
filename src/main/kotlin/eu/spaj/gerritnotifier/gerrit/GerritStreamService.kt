@@ -13,16 +13,17 @@ import eu.spaj.gerritnotifier.Config
 import eu.spaj.gerritnotifier.gerrit.data.Comment
 import eu.spaj.gerritnotifier.gerrit.data.Merge
 import eu.spaj.gerritnotifier.gerrit.data.Patchset
-import tornadofx.FX
+import tornadofx.*
 import java.io.BufferedReader
 import java.net.UnknownHostException
 
 
 /**
+ * Service that connects to Gerrit via SSH exec channel and subscribes for comment-added
+ * patchset-created change-merge events.
  * @author erafaja
  * Created on 2018-07-26.
  */
-
 class GerritStreamService {
 
     private lateinit var session: Session
@@ -41,6 +42,11 @@ class GerritStreamService {
 
     private fun isConnected() = if (::session.isInitialized) session.isConnected else false
 
+    /**
+     * Reads Gerrit Stream, filters it and fires events with appropriate object.
+     *
+     * @throws IllegalStateException
+     */
     @Throws(IllegalStateException::class)
     fun readGerritStream() {
         if (isConnected()) {
@@ -69,8 +75,18 @@ class GerritStreamService {
         }
     }
 
+    /**
+     * Utility function to fire events.
+     *
+     * @param event gerrit event to fire
+     */
     private fun fireEvent(event: GerritEvent) = FX.eventbus.fire(event)
 
+    /**
+     * Parses JSON String from Gerrit Stream API to objects and creates events.
+     *
+     * @param event json string
+     */
     private fun parseEvents(event: String): GerritEvent {
         return when {
             event.contains("comment-added") -> {
@@ -93,6 +109,13 @@ class GerritStreamService {
         }
     }
 
+    /**
+     * Connects to Gerrit Stream API through SSH.
+     *
+     * @throws UnknownHostException
+     * @throws IllegalStateException
+     * @throws JSchException
+     */
     @Throws(UnknownHostException::class, IllegalStateException::class, JSchException::class)
     fun connect() {
         if (!isConnected()) {
@@ -106,12 +129,18 @@ class GerritStreamService {
 
     }
 
+    /**
+     * Closes Gerrit SSH Stream (JSch channel)
+     */
     fun closeGerritStream() {
         if (::channel.isInitialized) {
             channel.disconnect()
         }
     }
 
+    /**
+     * Disconnects from SSH.
+     */
     fun disconnect() {
         if (isConnected()) {
             closeGerritStream()
@@ -120,6 +149,9 @@ class GerritStreamService {
     }
 }
 
+/**
+ * HostKey repository that accepts all of them, what a whore
+ */
 internal class AcceptsAllHostKeyRepository : HostKeyRepository {
 
     override fun check(host: String, key: ByteArray): Int {

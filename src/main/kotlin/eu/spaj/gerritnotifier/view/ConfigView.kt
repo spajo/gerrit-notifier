@@ -1,14 +1,9 @@
-package eu.spaj.gerritnotifier
+package eu.spaj.gerritnotifier.view
 
+import eu.spaj.gerritnotifier.Config
+import eu.spaj.gerritnotifier.ConfigController
 import javafx.beans.property.SimpleBooleanProperty
-import tornadofx.Form
-import tornadofx.View
-import tornadofx.action
-import tornadofx.bind
-import tornadofx.button
-import tornadofx.field
-import tornadofx.fieldset
-import tornadofx.textfield
+import tornadofx.*
 
 /**
  * @author erafaja
@@ -45,6 +40,7 @@ class ConfigView : View("Gerrit Notifier") {
                 action {
                     controller.saveConfig()
                 }
+                shortcut("Ctrl+S")
             }
 
             button("Start") {
@@ -60,6 +56,12 @@ class ConfigView : View("Gerrit Notifier") {
                 action {
                     controller.stop()
                     isStarted.set(false)
+                }
+            }
+
+            button("test") {
+                action {
+                    openInternalWindow<NotificationView>()
                 }
             }
         }

@@ -2,11 +2,10 @@ package eu.spaj.gerritnotifier
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import eu.spaj.gerritnotifier.view.ConfigView
 import javafx.application.Platform
 import javafx.stage.Stage
-import tornadofx.App
-import tornadofx.FX
-import tornadofx.find
+import tornadofx.*
 import java.awt.TrayIcon
 import java.nio.file.Files
 import java.nio.file.Paths
