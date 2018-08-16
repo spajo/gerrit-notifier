@@ -25,7 +25,7 @@ There are no tests here unfortunately.
 * [detekt-maven-plugin](https://github.com/Ozsie/detekt-maven-plugin) - maven plugin for detekt
 * [dokka](https://github.com/Kotlin/dokka) - docs - I'll upload them later
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [README-Templae](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - readme template, thanks
+* [README-Template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) - readme template, thanks
 
 
 ## Authors
@@ -37,7 +37,7 @@ There are no tests here unfortunately.
            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                    Version 2, December 2004
 
-Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+Copyright (C) 2018 Rafal Janicki <janicki@spaj.eu>
 
 Everyone is permitted to copy and distribute verbatim or modified
 copies of this license document, and changing it is allowed as long
