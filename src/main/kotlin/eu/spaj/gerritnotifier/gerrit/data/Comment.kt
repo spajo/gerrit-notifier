@@ -15,7 +15,7 @@ data class Comment(
         val approvals: List<Approval>?,
         val change: Change
 ) {
-    private val codeReview = approvals?.asSequence()?.find {
+    val codeReview = approvals?.asSequence()?.find {
         it.type == "Code-Review"
     }
 
